@@ -1,0 +1,21 @@
+type Order {
+  id: ID!
+  userId: ID!
+  product: String!
+  quantity: Int!
+}
+
+type Query {
+  orders: [Order!]!
+  order(id: ID!): Order
+}
+
+type Mutation {
+  createOrder(userId: ID!, product: String!, quantity: Int!): Order!
+  deleteOrder(id: ID!): Boolean!
+}
+
+type Subscription {
+  orderCreated: Order!
+  orderDeleted(id: ID!): Order!
+}

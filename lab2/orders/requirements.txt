@@ -1,0 +1,5 @@
+ariadne
+fastapi
+uvicorn
+motor
+pydantic
