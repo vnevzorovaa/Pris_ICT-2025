@@ -1,20 +1,14 @@
 from fastapi import FastAPI
 from ariadne.asgi import GraphQL
-from ariadne import make_executable_schema, QueryType
+from ariadne import QueryType, MutationType, make_executable_schema, load_schema_from_path
+from app.resolvers import query, mutation
 
 query = QueryType()
+mutation = MutationType()
 
-@query.field("hello")
-def resolve_hello(_, info):
-    return "Hello, GraphQL!"
+type_defs = load_schema_from_path("app/schema.graphql")
 
-type_defs = """
-    type Query {
-        hello: String!
-    }
-"""
-
-schema = make_executable_schema(type_defs, query)
+schema = make_executable_schema(type_defs, query, mutation)
 
 app = FastAPI()
 app.mount("/graphql", GraphQL(schema, debug=True))
