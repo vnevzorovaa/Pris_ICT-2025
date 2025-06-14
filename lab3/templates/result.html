@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1, h2 {
+            color: #1f2937;
+        }
+
+        img {
+            max-width: 90%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            width: 90%;
+            background-color: #fff;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9fafb;
+            color: #374151;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f3f4f6;
+        }
+
+        .button {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .button:hover {
+            background-color: #2563eb;
+        }
+
+        .info {
+            margin-top: 10px;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Результаты</h1>
+
+    {% if img_data %}
+        <h2>График реальных и предсказанных значений</h2>
+        <img src="data:image/png;base64,{{ img_data }}" alt="График">
+        <p class="info">Размер изображения (base64): {{ img_data|length }} символов</p>
+
+    {% elif preview %}
+        <h2>Предварительный просмотр данных</h2>
+        <p class="info">Недостаточно числовых столбцов для обучения модели</p>
+        {{ preview|safe }}
+
+    {% else %}
+        <p class="info">Нет данных для отображения.</p>
+    {% endif %}
+
+    <a class="button" href="{{ url_for('index') }}">Загрузить другой файл</a>
+</body>
+</html>
